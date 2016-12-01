@@ -2,3 +2,10 @@
 - name: Install the Android NDK (OS X)
   homebrew: name=android-ndk state=present
   when: ansible_os_family == 'Darwin'
+
+- stat: path=~/.config/fish/config.fish
+  register: fishConf
+  
+- name: Set Android NDK (Fish Shell)
+  lineinfile: dest=~/.config/fish/config.fish line="set -x ANDROID_NDK /usr/local/opt/android-ndk" state=present
+  when: fishConf.islnk is defined

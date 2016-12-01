@@ -2,3 +2,14 @@
 - name: Install the Android SDK (OS X)
   homebrew: name=android-sdk state=present
   when: ansible_os_family == 'Darwin'
+
+- stat: path=~/.config/fish/config.fish
+  register: fishConf
+
+- name: Set Android Home (Fish Shell)
+  lineinfile: dest=~/.config/fish/config.fish line="set -x ANDROID_HOME /usr/local/opt/android-sdk" state=present
+  when: fishConf.islnk is defined
+  
+- name: Set Android SDK (Fish Shell)
+  lineinfile: dest=~/.config/fish/config.fish line="set -x ANDROID_SDK /usr/local/opt/android-sdk" state=present
+  when: fishConf.islnk is defined
