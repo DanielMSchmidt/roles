@@ -1,0 +1,23 @@
+---
+- name: Install iTerm2
+  homebrew_cask: name=iterm2 state=present
+
+- name: Install Hack font
+  get_url: url=https://github.com/chrissimpkins/Hack/raw/master/build/ttf/{{ item }} dest=~/Library/Fonts/{{ item }}
+  with_items:
+    - Hack-Bold.ttf
+    - Hack-BoldItalic.ttf
+    - Hack-Regular.ttf
+    - Hack-Italic.ttf
+
+- name: Create config dir
+  file: path=~/.config/iterm2 state=directory mode=0755
+
+- name: Write iterm2 settings file
+  template: src=com.googlecode.iterm2.plist.j2 dest=~/.config/iterm2/com.googlecode.iterm2.plist
+
+- name: Set custom settings folder
+  command: defaults write com.googlecode.iterm2 PrefsCustomFolder -string "/Users/{{ user }}/.config/iterm2"
+
+- name: Enable custom settings folder
+  command: defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
