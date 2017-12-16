@@ -1,4 +1,8 @@
 ---
-- name: Install vscode
-  homebrew_cask: name=visual-studio-code state=present
-  when: ansible_os_family == 'Darwin'
+- block:
+
+    - name: Install vscode
+      homebrew_cask: name=vscode state=present
+      when: ansible_os_family == 'Darwin'
+
+  tags: vscode
