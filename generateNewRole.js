@@ -62,7 +62,7 @@ inquirer.prompt([{
       throw new Error("Package Manager seems to be missing");
     }
 
-    var dir = './roles/' + type + '/' + name + '/tasks';
+    var dir = './' + type + '/' + name + '/tasks';
     
     if (packageManager === 'mas') {
       tpl = _.template(fs.readFileSync('./templates/mas.tpl', 'utf-8'));
