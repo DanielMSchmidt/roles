@@ -1,5 +1,9 @@
 ---
 - block:
+    - name: Add git-duet tap
+      homebrew_tap:
+        name: git-duet/tap
+        state: present
 
     - name: Install git-duet
       homebrew: name=git-duet state=present
